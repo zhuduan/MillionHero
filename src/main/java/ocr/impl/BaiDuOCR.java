@@ -14,9 +14,9 @@ import java.util.HashMap;
  */
 public class BaiDuOCR implements OCR{
     //设置APPID/AK/SK
-    private static final String APP_ID = "10697064";
-    private static final String API_KEY = "Y2Dyel1bZwvsVRS00RZ9iBzh";
-    private static final String SECRET_KEY = "ED50nYFA3GbhM9AdyoZhC0qqweP9WjtY ";
+    private static final String APP_ID = "10735363";
+    private static final String API_KEY = "le7sCcyhkwlC3TaQ1Ldz9yRy";
+    private static final String SECRET_KEY = "GYMifAnU7LnszTApP9xS4lvvVkqgZdWP ";
     private static final AipOcr CLIENT=new AipOcr(APP_ID, API_KEY, SECRET_KEY);
     BaiDuOCR(){
         // 可选：设置网络连接参数
