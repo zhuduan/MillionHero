@@ -6,6 +6,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -44,13 +45,35 @@ public class ImageHelper {
         }catch (IOException e){
             System.err.println("裁剪图片失败");
         }
-
-
+    }
+    
+    
+    // binary images
+    public BufferedImage binaryImage(BufferedImage srcImg){
+        try {
+            //TODO:
+            Iterator iterator = ImageIO.getImageReadersByFormatName("png");
+            byte[] imageByte = null;
+            InputStream in = new ByteArrayInputStream(imageByte);
+            ImageInputStream iis = ImageIO.createImageInputStream(in);
+            ImageReader reader = (ImageReader) iterator.next();
+            reader.setInput(iis, true);
+            BufferedImage image = reader.read(0);
+            return image;
+        } catch (IOException e){
+            // something wrong
+        }
+        return null;
+    }
+    
+    // denoise the image
+    public BufferedImage denoiseImage(BufferedImage srcImg){
+        return null;
     }
 
     public static void main(String[] args) throws IOException {
-        String src = "D:\\20180111214256.png";
-        String dest=  "D:\\18.png";
+        String src = "src/resource/screenshot.png";
+        String dest= "src/resource/screenshot_after_cut.png";
         long start=System.currentTimeMillis();
         new ImageHelper().cutImage(src,dest,100,100,100,100);
         System.out.println(System.currentTimeMillis()-start);

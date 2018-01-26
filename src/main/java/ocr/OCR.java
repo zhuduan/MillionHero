@@ -1,5 +1,6 @@
 package ocr;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
@@ -13,4 +14,6 @@ public interface OCR {
      * @return String
      */
     String getOCR(File file);
+    
+    String getQuestionAndAnswer(BufferedImage image);
 }

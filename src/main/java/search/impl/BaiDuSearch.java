@@ -1,7 +1,6 @@
 package search.impl;
 
 import search.Search;
-import utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import java.net.URLEncoder;
  * @author lingfengsan
  */
 public class BaiDuSearch implements Search {
+    
     private String question;
     private Boolean needOpenBrowser;
     private String path;
@@ -26,6 +26,7 @@ public class BaiDuSearch implements Search {
         this.path = "http://www.baidu.com/s?tn=ichuner&lm=-1&word=" +
                 URLEncoder.encode(question, "gb2312") + "&rn=1";
     }
+    
     @Override
     public Long search() throws IOException {
         boolean findIt = false;
@@ -53,7 +54,7 @@ public class BaiDuSearch implements Search {
     @Override
     public Long call() throws IOException {
         if (needOpenBrowser) {
-            new Utils().openBrowser(path);
+//            new Utils().openBrowser(path);
         }
         return search();
     }

@@ -5,6 +5,7 @@ import ocr.OCR;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 
@@ -16,14 +17,16 @@ public class BaiDuOCR implements OCR{
     //设置APPID/AK/SK
     private static final String APP_ID = "10735363";
     private static final String API_KEY = "le7sCcyhkwlC3TaQ1Ldz9yRy";
-    private static final String SECRET_KEY = "GYMifAnU7LnszTApP9xS4lvvVkqgZdWP ";
+    private static final String SECRET_KEY = "GYMifAnU7LnszTApP9xS4lvvVkqgZdWP";
     private static final AipOcr CLIENT=new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+    
     BaiDuOCR(){
         // 可选：设置网络连接参数
         CLIENT.setConnectionTimeoutInMillis(2000);
         CLIENT.setSocketTimeoutInMillis(60000);
         System.out.println("欢迎您使用百度OCR进行文字识别");
     }
+    
     @Override
     public String getOCR(File file) {
         Long start=System.currentTimeMillis();
@@ -44,9 +47,14 @@ public class BaiDuOCR implements OCR{
         return sb.toString();
     }
 
+    @Override
+    public String getQuestionAndAnswer(BufferedImage image) {
+        return null;
+    }
+
     public static void main(String[] args) {
         OCR ocr=new BaiDuOCR();
-        String path = "D:\\Photo\\20180114002647.png";
+        String path = "src/resource/screenshot.png";
         String result=ocr.getOCR(new File(path));
         System.out.println(result);
     }
