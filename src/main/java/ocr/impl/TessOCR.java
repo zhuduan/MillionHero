@@ -18,7 +18,7 @@ public class TessOCR implements OCR {
     
     private ITesseract instance;
 
-    TessOCR() {
+    public TessOCR() {
         instance = new Tesseract();
         File tessDataFolder = LoadLibs.extractTessResources("tessdata");
         instance.setLanguage("chi_sim");

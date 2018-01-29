@@ -1,5 +1,8 @@
 package utils;
 
+import common.ImageConfig;
+import common.PeekMeeting_ImageConfig;
+
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
@@ -13,12 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
-/**
- * Created by 618 on 2018/1/12.
- *
- * @author lingfengsan
- */
-public class ImageHelper {
+
+public class ImageUtil {
     /**
      * 图片裁剪通用接口
      *
@@ -30,7 +29,7 @@ public class ImageHelper {
      * @param h    图片高度
      * @throws IOException 异常处理
      */
-    public void cutImage(String src, String dest, int x, int y, int w, int h)  {
+    public static void cutImage(String src, String dest, int x, int y, int w, int h)  {
         try{
             Iterator iterator = ImageIO.getImageReadersByFormatName("png");
             ImageReader reader = (ImageReader) iterator.next();
@@ -48,8 +47,31 @@ public class ImageHelper {
     }
     
     
+    public static BufferedImage cutImage(String imgSrc, ImageConfig imageConfig){
+        try{
+            Iterator iterator = ImageIO.getImageReadersByFormatName("png");
+            ImageReader reader = (ImageReader) iterator.next();
+            InputStream in = new FileInputStream(imgSrc);
+            ImageInputStream iis = ImageIO.createImageInputStream(in);
+            reader.setInput(iis, true);
+            ImageReadParam param = reader.getDefaultReadParam();
+            Rectangle rect = new Rectangle(imageConfig.getLeft_x(), imageConfig.getLeft_y(), 
+                    imageConfig.getWidth(), imageConfig.getHeight());
+            param.setSourceRegion(rect);
+            BufferedImage bi = reader.read(0, param);
+            return bi;
+        }catch (IOException e){
+            System.err.println("裁剪图片失败");
+        }
+        return null;
+    }
+    
     // binary images
-    public BufferedImage binaryImage(BufferedImage srcImg){
+    public static BufferedImage binaryImage(BufferedImage srcImg){
+        if ( srcImg==null ){
+            return null;
+        }
+        
         try {
             //TODO:
             Iterator iterator = ImageIO.getImageReadersByFormatName("png");
@@ -67,15 +89,27 @@ public class ImageHelper {
     }
     
     // denoise the image
-    public BufferedImage denoiseImage(BufferedImage srcImg){
+    public static BufferedImage denoiseImage(BufferedImage srcImg){
+        if ( srcImg==null ){
+            return null;
+        }
+        
         return null;
+    }
+    
+    public static void saveImage(BufferedImage srcImg, String dest){
+        try {
+            ImageIO.write(srcImg, "png", new File(dest));
+        }catch (IOException exp){
+            System.err.println("保存图片失败");
+        }
     }
 
     public static void main(String[] args) throws IOException {
         String src = "src/resource/screenshot.png";
         String dest= "src/resource/screenshot_after_cut.png";
-        long start=System.currentTimeMillis();
-        new ImageHelper().cutImage(src,dest,100,100,100,100);
-        System.out.println(System.currentTimeMillis()-start);
+        ImageUtil imageUtil = new ImageUtil();
+        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_ImageConfig());
+        imageUtil.saveImage(bufferedImage, dest);
     }
 }

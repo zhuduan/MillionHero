@@ -20,7 +20,7 @@ public class BaiDuOCR implements OCR{
     private static final String SECRET_KEY = "GYMifAnU7LnszTApP9xS4lvvVkqgZdWP";
     private static final AipOcr CLIENT=new AipOcr(APP_ID, API_KEY, SECRET_KEY);
     
-    BaiDuOCR(){
+   public BaiDuOCR(){
         // 可选：设置网络连接参数
         CLIENT.setConnectionTimeoutInMillis(2000);
         CLIENT.setSocketTimeoutInMillis(60000);
