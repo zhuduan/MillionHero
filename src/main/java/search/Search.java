@@ -10,5 +10,5 @@ import java.util.concurrent.Callable;
  * @author lingfengsan
  */
 public interface Search extends Callable {
-    Long search() throws IOException;
+    Long search();
 }

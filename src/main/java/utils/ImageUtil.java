@@ -1,7 +1,7 @@
 package utils;
 
-import common.ImageConfig;
-import common.PeekMeeting_ImageConfig;
+import common.AdapterConfig;
+import common.PeekMeeting_AdapterConfig;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -10,6 +10,7 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -45,18 +46,26 @@ public class ImageUtil {
             System.err.println("裁剪图片失败");
         }
     }
-    
-    
-    public static BufferedImage cutImage(String imgSrc, ImageConfig imageConfig){
+
+
+    /***
+     * 
+     * cut image due to adapter config params
+     * 
+     * @param imgSrc
+     * @param adapterConfig
+     * @return
+     */
+    public static BufferedImage cutImage(String imgSrc, AdapterConfig adapterConfig){
         try{
-            Iterator iterator = ImageIO.getImageReadersByFormatName("png");
+            Iterator iterator = ImageIO.getImageReadersByFormatName(adapterConfig.getImg_suffix());
             ImageReader reader = (ImageReader) iterator.next();
             InputStream in = new FileInputStream(imgSrc);
             ImageInputStream iis = ImageIO.createImageInputStream(in);
             reader.setInput(iis, true);
             ImageReadParam param = reader.getDefaultReadParam();
-            Rectangle rect = new Rectangle(imageConfig.getLeft_x(), imageConfig.getLeft_y(), 
-                    imageConfig.getWidth(), imageConfig.getHeight());
+            Rectangle rect = new Rectangle(adapterConfig.getImg_left_x(), adapterConfig.getImg_left_y(), 
+                    adapterConfig.getImg_width(), adapterConfig.getImg_height());
             param.setSourceRegion(rect);
             BufferedImage bi = reader.read(0, param);
             return bi;
@@ -97,19 +106,40 @@ public class ImageUtil {
         return null;
     }
     
-    public static void saveImage(BufferedImage srcImg, String dest){
+    public static void saveImage(BufferedImage srcImg, String dest, AdapterConfig config){
         try {
-            ImageIO.write(srcImg, "png", new File(dest));
+            ImageIO.write(srcImg, config.getImg_suffix(), new File(dest));
         }catch (IOException exp){
             System.err.println("保存图片失败");
         }
+    }
+
+    /***
+     * convert a image to a byte value array
+     * 
+     * @param image
+     * @return byte[] or null if error occur
+     */
+    public static byte[] getByteFromImage(BufferedImage image, AdapterConfig config){
+        if ( image==null ){
+            return null;
+        }
+        
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, config.getImg_suffix(), byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException exp){
+            
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException {
         String src = "src/resource/screenshot.png";
         String dest= "src/resource/screenshot_after_cut.png";
         ImageUtil imageUtil = new ImageUtil();
-        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_ImageConfig());
-        imageUtil.saveImage(bufferedImage, dest);
+        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_AdapterConfig());
+        imageUtil.saveImage(bufferedImage, dest, new PeekMeeting_AdapterConfig());
     }
 }

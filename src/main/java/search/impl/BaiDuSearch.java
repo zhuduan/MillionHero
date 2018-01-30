@@ -20,32 +20,44 @@ public class BaiDuSearch implements Search {
     private Boolean needOpenBrowser;
     private String path;
 
-    public BaiDuSearch(String question, Boolean needOpenBrowser) throws UnsupportedEncodingException {
-        this.question = question;
-        this.needOpenBrowser = needOpenBrowser;
-        this.path = "http://www.baidu.com/s?tn=ichuner&lm=-1&word=" +
-                URLEncoder.encode(question, "gb2312") + "&rn=1";
+    public BaiDuSearch(String question, Boolean needOpenBrowser) {
+        try {
+            this.question = question;
+            this.needOpenBrowser = needOpenBrowser;
+            this.path = "http://www.baidu.com/s?tn=ichuner&lm=-1&word=" +
+                    URLEncoder.encode(question, "gb2312") + "&rn=1";
+        } catch (UnsupportedEncodingException exp){
+            // todo:
+        }
     }
-    
+
+    public BaiDuSearch() {
+        // todo:
+    }
+
     @Override
-    public Long search() throws IOException {
+    public Long search() {
         boolean findIt = false;
         String line = null;
-        while (!findIt) {
-            URL url = new URL(path);
-            BufferedReader breaded = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-            while ((line = breaded.readLine()) != null) {
-                if (line.contains("百度为您找到相关结果约")) {
-                    findIt = true;
-                    int start = line.indexOf("百度为您找到相关结果约") + 11;
+        try {
+            while (!findIt) {
+                URL url = new URL(path);
+                BufferedReader breaded = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+                while ((line = breaded.readLine()) != null) {
+                    if (line.contains("百度为您找到相关结果约")) {
+                        findIt = true;
+                        int start = line.indexOf("百度为您找到相关结果约") + 11;
 
-                    line = line.substring(start);
-                    int end = line.indexOf("个");
-                    line = line.substring(0, end);
-                    break;
+                        line = line.substring(start);
+                        int end = line.indexOf("个");
+                        line = line.substring(0, end);
+                        break;
+                    }
+
                 }
-
             }
+        } catch (IOException exp){
+            
         }
         line = line.replace(",", "");
         return Long.valueOf(line);

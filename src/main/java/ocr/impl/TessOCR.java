@@ -1,5 +1,7 @@
 package ocr.impl;
 
+import common.AdapterConfig;
+import model.QuestionAndAnswer;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -26,29 +28,15 @@ public class TessOCR implements OCR {
         instance.setDatapath(tessDataFolder.getAbsolutePath());
         System.out.println("欢迎您使用TessOCR进行文字识别");
     }
-
+    
     @Override
-    public String getOCR(File file) {
-        Long start = System.currentTimeMillis();
-        String result = null;
-        try {
-            result = instance.doOCR(file);
-        } catch (TesseractException e) {
-            System.err.println("tessOCR提取图片文字信息失败");
-        }
-        float time=(System.currentTimeMillis()-start)/(1000f);
-        System.out.println("tessOCR提取信息成功，耗时："+time+"s");
-        return result;
-    }
-
-    @Override
-    public String getQuestionAndAnswer(BufferedImage image) {
+    public QuestionAndAnswer getQuestionAndAnswer(byte[] image, AdapterConfig config) {
         return null;
     }
 
     public static void main(String[] args) {
-        String path = "src/resource/screenshot.png";
-        TessOCR tessOCR = new TessOCR();
-        System.out.println(tessOCR.getOCR(new File(path)));
+//        String path = "src/resource/screenshot.png";
+//        TessOCR tessOCR = new TessOCR();
+//        System.out.println(tessOCR.getOCR(new File(path)));
     }
 }

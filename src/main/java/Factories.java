@@ -1,8 +1,10 @@
-import common.Config;
-import common.Config.OcrMethod;
+import common.Config.*;
 import ocr.OCR;
 import ocr.impl.BaiDuOCR;
 import ocr.impl.TessOCR;
+import search.Search;
+import search.impl.BaiDuSearch;
+import search.impl.GoogleSearch;
 
 /**
  * purpose of this class
@@ -23,4 +25,15 @@ public class Factories {
         }
     }
     
+    
+    public Search getSearchMethod(SearchMethod type){
+        switch (type){
+            case BAIDU:
+                return new BaiDuSearch();
+            case GOOGLE:
+                return new GoogleSearch();
+            default:
+                return new BaiDuSearch();
+        }
+    }
 }
