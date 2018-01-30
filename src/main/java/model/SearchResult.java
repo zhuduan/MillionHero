@@ -8,16 +8,16 @@ package model;
  */
 public class SearchResult {
     
-    private Long searchResult = 0L;
+    private Long hitNum = 0L;
     
     private String content = "";
 
-    public Long getSearchResult() {
-        return searchResult;
+    public Long getHitNum() {
+        return hitNum;
     }
 
-    public void setSearchResult(Long searchResult) {
-        this.searchResult = searchResult;
+    public void setHitNum(Long hitNum) {
+        this.hitNum = hitNum;
     }
 
     public String getContent() {
@@ -26,5 +26,12 @@ public class SearchResult {
 
     public void setContent(String content) {
         this.content = content;
+    }
+    
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("HitNum=" + hitNum + "\r\n");
+        stringBuilder.append(content);
+        return stringBuilder.toString();
     }
 }

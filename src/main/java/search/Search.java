@@ -1,5 +1,8 @@
 package search;
 
+import model.QuestionAndAnswer;
+import model.SearchResult;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.Callable;
@@ -10,5 +13,6 @@ import java.util.concurrent.Callable;
  * @author lingfengsan
  */
 public interface Search extends Callable {
-    Long search();
+    
+    SearchResult search(String searchContent);
 }

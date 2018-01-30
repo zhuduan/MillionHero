@@ -18,6 +18,10 @@ public class PeekMeeting_AdapterConfig extends AdapterConfig {
     // Q&A related 
     private int qa_txt_max_per_line = 15;
     private int qa_answer_max_num = 3;
+    private String qa_char_code = "UTF-8";
+    
+    // display related
+    private boolean show_browser = false;
 
     @Override
     public int getImg_left_x() {
@@ -87,5 +91,25 @@ public class PeekMeeting_AdapterConfig extends AdapterConfig {
     @Override
     public void setQa_answer_max_num(int qa_answer_max_num) {
         this.qa_answer_max_num = qa_answer_max_num;
+    }
+
+    @Override
+    public boolean isShow_browser() {
+        return show_browser;
+    }
+
+    @Override
+    public void setShow_browser(boolean show_browser) {
+        this.show_browser = show_browser;
+    }
+
+    @Override
+    public String getQa_char_code() {
+        return qa_char_code;
+    }
+
+    @Override
+    public void setQa_char_code(String qa_char_code) {
+        this.qa_char_code = qa_char_code;
     }
 }

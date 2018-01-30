@@ -1,3 +1,4 @@
+import common.AdapterConfig;
 import common.Config.*;
 import ocr.OCR;
 import ocr.impl.BaiDuOCR;
@@ -14,26 +15,26 @@ import search.impl.GoogleSearch;
  */
 public class Factories {
     
-    public OCR getOcrMethod(OcrMethod type){
+    public OCR getOcrMethod(OcrMethod type, AdapterConfig config){
         switch (type){
             case BAIDU:
-                return new BaiDuOCR();
+                return new BaiDuOCR(config);
             case Tess:
-                return new TessOCR();
+                return new TessOCR(config);
             default:
-                return new TessOCR();
+                return new TessOCR(config);
         }
     }
     
     
-    public Search getSearchMethod(SearchMethod type){
+    public Search getSearchMethod(SearchMethod type, AdapterConfig config){
         switch (type){
             case BAIDU:
-                return new BaiDuSearch();
+                return new BaiDuSearch(config);
             case GOOGLE:
-                return new GoogleSearch();
+                return new GoogleSearch(config);
             default:
-                return new BaiDuSearch();
+                return new BaiDuSearch(config);
         }
     }
 }

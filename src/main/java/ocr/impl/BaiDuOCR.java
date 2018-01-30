@@ -29,15 +29,19 @@ public class BaiDuOCR implements OCR{
     private static final Integer CONNECTION_TIMEOUT_MILLIONS = 2000;
     private static final Integer SOCKET_TIMEOUT_MILLIONS = 6000;
     
-    public BaiDuOCR(){
+    private AdapterConfig config = null;
+    
+    public BaiDuOCR(AdapterConfig config){
        // 可选：设置网络连接参数
        CLIENT.setConnectionTimeoutInMillis(CONNECTION_TIMEOUT_MILLIONS);
        CLIENT.setSocketTimeoutInMillis(SOCKET_TIMEOUT_MILLIONS);
+       
+       // set config params
+        this.config = config;
     }
-    
 
     @Override
-    public QuestionAndAnswer getQuestionAndAnswer(byte[] image, AdapterConfig config) {
+    public QuestionAndAnswer getQuestionAndAnswer(byte[] image) {
         JSONObject res = CLIENT.basicGeneral(image, new HashMap<String, String>());
         System.out.println(res.toString());
         
@@ -66,11 +70,11 @@ public class BaiDuOCR implements OCR{
     }
 
     public static void main(String[] args) {
-        OCR ocr=new BaiDuOCR();
-        String path = "src/resource/screenshot_after_cut.png";
         PeekMeeting_AdapterConfig config = new PeekMeeting_AdapterConfig();
+        OCR ocr=new BaiDuOCR(config);
+        String path = "src/resource/screenshot_after_cut.png";
         byte[] imgBytes = ImageUtil.getByteFromImage(ImageUtil.cutImage(path, config),config);
-        QuestionAndAnswer questionAndAnswer = ocr.getQuestionAndAnswer(imgBytes, config);
+        QuestionAndAnswer questionAndAnswer = ocr.getQuestionAndAnswer(imgBytes);
         System.out.println(questionAndAnswer.toString());
     }
 }

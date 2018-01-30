@@ -19,8 +19,10 @@ import java.io.File;
 public class TessOCR implements OCR {
     
     private ITesseract instance;
+    
+    private AdapterConfig config = null;
 
-    public TessOCR() {
+    public TessOCR(AdapterConfig config) {
         instance = new Tesseract();
         File tessDataFolder = LoadLibs.extractTessResources("tessdata");
         instance.setLanguage("chi_sim");
@@ -30,7 +32,7 @@ public class TessOCR implements OCR {
     }
     
     @Override
-    public QuestionAndAnswer getQuestionAndAnswer(byte[] image, AdapterConfig config) {
+    public QuestionAndAnswer getQuestionAndAnswer(byte[] image) {
         return null;
     }
 

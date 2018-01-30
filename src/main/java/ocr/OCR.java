@@ -9,5 +9,5 @@ import java.io.File;
 
 public interface OCR {
     
-    QuestionAndAnswer getQuestionAndAnswer(byte[] image, AdapterConfig config);
+    QuestionAndAnswer getQuestionAndAnswer(byte[] image);
 }

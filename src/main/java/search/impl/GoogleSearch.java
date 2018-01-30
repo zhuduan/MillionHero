@@ -1,5 +1,7 @@
 package search.impl;
 
+import common.AdapterConfig;
+import model.SearchResult;
 import search.Search;
 
 /**
@@ -10,17 +12,17 @@ import search.Search;
  */
 public class GoogleSearch implements Search {
 
-    public GoogleSearch() {
+    public GoogleSearch(AdapterConfig config) {
         // todo: 
     }
-
+    
     @Override
-    public Long search() {
+    public Object call() throws Exception {
         return null;
     }
 
     @Override
-    public Object call() throws Exception {
+    public SearchResult search(String searchContent) {
         return null;
     }
 }

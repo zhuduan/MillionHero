@@ -15,9 +15,13 @@ public abstract class AdapterConfig {
     private int img_height=100;
     private String img_suffix = "png"; 
     
-    // Q&A related 
+    // Q&A related
     private int qa_txt_max_per_line = 15;
     private int qa_answer_max_num = 3;
+    private String qa_char_code = "UTF-8";
+
+    // display related
+    private boolean show_browser = false;
 
     public int getImg_left_x() {
         return img_left_x;
@@ -73,5 +77,21 @@ public abstract class AdapterConfig {
 
     public void setImg_suffix(String img_suffix) {
         this.img_suffix = img_suffix;
+    }
+
+    public boolean isShow_browser() {
+        return show_browser;
+    }
+
+    public void setShow_browser(boolean show_browser) {
+        this.show_browser = show_browser;
+    }
+
+    public String getQa_char_code() {
+        return qa_char_code;
+    }
+
+    public void setQa_char_code(String qa_char_code) {
+        this.qa_char_code = qa_char_code;
     }
 }
