@@ -1,6 +1,6 @@
 package model;
 
-import common.AdapterConfig;
+import common.GameConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class QuestionAndAnswer {
     
     private List<String> answers;
     
-    private AdapterConfig config;       // the config used for this Q&A
+    private GameConfig config;       // the config used for this Q&A
 
     public String getQuestion() {
         return question;
@@ -35,22 +35,22 @@ public class QuestionAndAnswer {
         this.answers = answers;
     }
 
-    public AdapterConfig getConfig() {
+    public GameConfig getConfig() {
         return config;
     }
 
-    public void setConfig(AdapterConfig config) {
+    public void setConfig(GameConfig config) {
         this.config = config;
     }
 
-    public QuestionAndAnswer(String question, List<String> answers, AdapterConfig config) {
+    public QuestionAndAnswer(String question, List<String> answers, GameConfig config) {
         this.question = question;
         this.config = config;
         this.answers = adjustAnswers(answers, config);
     }
 
     // to adjust the answer list, to avoid answer exceeding the max char per line limit
-    private List<String> adjustAnswers(List<String> orinAnswerList, AdapterConfig config){
+    private List<String> adjustAnswers(List<String> orinAnswerList, GameConfig config){
         if ( orinAnswerList.size()<=config.getQa_answer_max_num() ){
             return orinAnswerList;
         }

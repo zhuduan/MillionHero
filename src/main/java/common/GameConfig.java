@@ -6,7 +6,7 @@ package common;
  * @author Haifeng.Zhu
  *         created at 1/29/18
  */
-public abstract class AdapterConfig {
+public abstract class GameConfig {
     
     // image related 
     private int img_left_x=0;

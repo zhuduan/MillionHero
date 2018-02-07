@@ -1,12 +1,14 @@
 package search.impl;
 
-import common.AdapterConfig;
-import common.PeekMeeting_AdapterConfig;
+import common.GameConfig;
+import common.PeekMeeting_GameConfig;
 import model.SearchResult;
 import search.Search;
+import utils.HttpConnectionUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -17,13 +19,13 @@ import java.net.URLEncoder;
 public class BaiDuSearch implements Search {
     
     
-    private static String URL_PREFIX = "http://www.baidu.com/s?tn=ichuner&lm=-1&word=";
-    private static String URL_SUFFIX = "&rn=1";
+    private static String URL_PREFIX = "http://www.baidu.com/s?wd=";
+    private static String URL_SUFFIX = "";
 
-    private AdapterConfig config = null;
+    private GameConfig config = null;
 
     
-    public BaiDuSearch(AdapterConfig config) {
+    public BaiDuSearch(GameConfig config) {
         this.config = config;
     }
 
@@ -33,9 +35,15 @@ public class BaiDuSearch implements Search {
         StringBuilder content = new StringBuilder();
         try {
             URL url = new URL(URL_PREFIX + getEncodeContent(searchContent) + URL_SUFFIX);
-            BufferedReader breaded = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            InputStream inputStream = HttpConnectionUtil.getInfo(url);
+            if ( inputStream==null ){
+                return searchResult;
+            }
+            
+            BufferedReader breaded = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             String line = breaded.readLine();
             while ( line != null ) {
+                content.append(line);
                 if (line.contains("百度为您找到相关结果约")) {
                     int start = line.indexOf("百度为您找到相关结果约") + 11;
                     line = line.substring(start);
@@ -44,8 +52,6 @@ public class BaiDuSearch implements Search {
                     line = line.replace(",", "");
                     searchResult.setHitNum(Long.valueOf(line));
                 }
-
-                content.append(line);
                 line = breaded.readLine();
             }
         } catch (MalformedURLException exp){
@@ -77,8 +83,8 @@ public class BaiDuSearch implements Search {
     }
     
     public static void main(String[] args){
-        BaiDuSearch search = new BaiDuSearch(new PeekMeeting_AdapterConfig());
-        SearchResult searchResult = search.search("以下哪个不是清华大学的代表校花");
+        BaiDuSearch search = new BaiDuSearch(new PeekMeeting_GameConfig());
+        SearchResult searchResult = search.search("以下哪个不是清华大学的代表校花 山茶花");
         System.out.println(searchResult.toString());
     }
 }

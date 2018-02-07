@@ -1,7 +1,7 @@
 package utils;
 
-import common.AdapterConfig;
-import common.PeekMeeting_AdapterConfig;
+import common.GameConfig;
+import common.PeekMeeting_GameConfig;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -53,19 +53,19 @@ public class ImageUtil {
      * cut image due to adapter config params
      * 
      * @param imgSrc
-     * @param adapterConfig
+     * @param gameConfig
      * @return
      */
-    public static BufferedImage cutImage(String imgSrc, AdapterConfig adapterConfig){
+    public static BufferedImage cutImage(String imgSrc, GameConfig gameConfig){
         try{
-            Iterator iterator = ImageIO.getImageReadersByFormatName(adapterConfig.getImg_suffix());
+            Iterator iterator = ImageIO.getImageReadersByFormatName(gameConfig.getImg_suffix());
             ImageReader reader = (ImageReader) iterator.next();
             InputStream in = new FileInputStream(imgSrc);
             ImageInputStream iis = ImageIO.createImageInputStream(in);
             reader.setInput(iis, true);
             ImageReadParam param = reader.getDefaultReadParam();
-            Rectangle rect = new Rectangle(adapterConfig.getImg_left_x(), adapterConfig.getImg_left_y(), 
-                    adapterConfig.getImg_width(), adapterConfig.getImg_height());
+            Rectangle rect = new Rectangle(gameConfig.getImg_left_x(), gameConfig.getImg_left_y(), 
+                    gameConfig.getImg_width(), gameConfig.getImg_height());
             param.setSourceRegion(rect);
             BufferedImage bi = reader.read(0, param);
             return bi;
@@ -106,7 +106,7 @@ public class ImageUtil {
         return null;
     }
     
-    public static void saveImage(BufferedImage srcImg, String dest, AdapterConfig config){
+    public static void saveImage(BufferedImage srcImg, String dest, GameConfig config){
         try {
             ImageIO.write(srcImg, config.getImg_suffix(), new File(dest));
         }catch (IOException exp){
@@ -120,7 +120,7 @@ public class ImageUtil {
      * @param image
      * @return byte[] or null if error occur
      */
-    public static byte[] getByteFromImage(BufferedImage image, AdapterConfig config){
+    public static byte[] getByteFromImage(BufferedImage image, GameConfig config){
         if ( image==null ){
             return null;
         }
@@ -139,7 +139,7 @@ public class ImageUtil {
         String src = "src/resource/screenshot.png";
         String dest= "src/resource/screenshot_after_cut.png";
         ImageUtil imageUtil = new ImageUtil();
-        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_AdapterConfig());
-        imageUtil.saveImage(bufferedImage, dest, new PeekMeeting_AdapterConfig());
+        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_GameConfig());
+        imageUtil.saveImage(bufferedImage, dest, new PeekMeeting_GameConfig());
     }
 }

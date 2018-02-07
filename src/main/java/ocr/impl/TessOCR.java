@@ -1,14 +1,12 @@
 package ocr.impl;
 
-import common.AdapterConfig;
+import common.GameConfig;
 import model.QuestionAndAnswer;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.util.LoadLibs;
 import ocr.OCR;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
@@ -20,9 +18,9 @@ public class TessOCR implements OCR {
     
     private ITesseract instance;
     
-    private AdapterConfig config = null;
+    private GameConfig config = null;
 
-    public TessOCR(AdapterConfig config) {
+    public TessOCR(GameConfig config) {
         instance = new Tesseract();
         File tessDataFolder = LoadLibs.extractTessResources("tessdata");
         instance.setLanguage("chi_sim");

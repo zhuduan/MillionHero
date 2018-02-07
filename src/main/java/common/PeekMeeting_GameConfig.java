@@ -6,7 +6,7 @@ package common;
  * @author Haifeng.Zhu
  *         created at 1/29/18
  */
-public class PeekMeeting_AdapterConfig extends AdapterConfig {
+public class PeekMeeting_GameConfig extends GameConfig {
 
     // image related 
     private int img_left_x=0;

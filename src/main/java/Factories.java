@@ -1,4 +1,4 @@
-import common.AdapterConfig;
+import common.GameConfig;
 import common.Config.*;
 import ocr.OCR;
 import ocr.impl.BaiDuOCR;
@@ -15,7 +15,7 @@ import search.impl.GoogleSearch;
  */
 public class Factories {
     
-    public OCR getOcrMethod(OcrMethod type, AdapterConfig config){
+    public OCR getOcrMethod(OcrMethod type, GameConfig config){
         switch (type){
             case BAIDU:
                 return new BaiDuOCR(config);
@@ -27,7 +27,7 @@ public class Factories {
     }
     
     
-    public Search getSearchMethod(SearchMethod type, AdapterConfig config){
+    public Search getSearchMethod(SearchMethod type, GameConfig config){
         switch (type){
             case BAIDU:
                 return new BaiDuSearch(config);
