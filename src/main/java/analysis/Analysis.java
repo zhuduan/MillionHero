@@ -1,6 +1,13 @@
 package analysis;
 
+import common.Config;
+import common.GameConfig;
+import common.GameConfig_Default;
+import model.ChosenAnswer;
 import model.QuestionAndAnswer;
+import ocr.OCR;
+import search.Search;
+import utils.Factories;
 
 /**
  * purpose of this class
@@ -8,15 +15,17 @@ import model.QuestionAndAnswer;
  * @author Haifeng.Zhu
  *         created at 1/26/18
  */
-public interface Analysis {
+public abstract class Analysis {
 
+    private Search searchMethod = Factories.getSearchMethod(Config.SearchMethod.BAIDU, new GameConfig_Default());
+    private OCR ocrMethod = Factories.getOcrMethod(Config.OcrMethod.BAIDU, new GameConfig_Default());
+    
     /***
      * 
-     * get the answer's index : 1 for answer1, 2 for answer2, 3 for answer3
-     * or null if can not get effective one
+     * get the answer should be chosen
      * 
-     * @param questionAndAnswer
+     * @param imgBytes
      * @return
      */
-    Integer getAnswer(QuestionAndAnswer questionAndAnswer);
+    public abstract ChosenAnswer getAnswer(byte[] imgBytes);
 }

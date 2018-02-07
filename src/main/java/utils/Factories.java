@@ -1,3 +1,5 @@
+package utils;
+
 import common.GameConfig;
 import common.Config.*;
 import ocr.OCR;
@@ -15,7 +17,7 @@ import search.impl.GoogleSearch;
  */
 public class Factories {
     
-    public OCR getOcrMethod(OcrMethod type, GameConfig config){
+    public static OCR getOcrMethod(OcrMethod type, GameConfig config){
         switch (type){
             case BAIDU:
                 return new BaiDuOCR(config);
@@ -27,7 +29,7 @@ public class Factories {
     }
     
     
-    public Search getSearchMethod(SearchMethod type, GameConfig config){
+    public static Search getSearchMethod(SearchMethod type, GameConfig config){
         switch (type){
             case BAIDU:
                 return new BaiDuSearch(config);

@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
  *
  * @author lingfengsan
  */
-public interface Search extends Callable {
+public interface Search {
     
     SearchResult search(String searchContent);
 }

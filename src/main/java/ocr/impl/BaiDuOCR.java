@@ -2,7 +2,7 @@ package ocr.impl;
 
 import com.baidu.aip.ocr.AipOcr;
 import common.GameConfig;
-import common.PeekMeeting_GameConfig;
+import common.GameConfig_PeekMeeting;
 import model.QuestionAndAnswer;
 import ocr.OCR;
 import org.json.JSONArray;
@@ -70,7 +70,7 @@ public class BaiDuOCR implements OCR{
     }
 
     public static void main(String[] args) {
-        PeekMeeting_GameConfig config = new PeekMeeting_GameConfig();
+        GameConfig_PeekMeeting config = new GameConfig_PeekMeeting();
         OCR ocr=new BaiDuOCR(config);
         String path = "src/resource/screenshot_after_cut.png";
         byte[] imgBytes = ImageUtil.getByteFromImage(ImageUtil.cutImage(path, config),config);

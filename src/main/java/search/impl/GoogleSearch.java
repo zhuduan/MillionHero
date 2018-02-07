@@ -1,7 +1,7 @@
 package search.impl;
 
 import common.GameConfig;
-import common.PeekMeeting_GameConfig;
+import common.GameConfig_PeekMeeting;
 import model.SearchResult;
 import search.Search;
 import utils.HttpConnectionUtil;
@@ -32,11 +32,6 @@ public class GoogleSearch implements Search {
 
     public GoogleSearch(GameConfig config) {
         this.config = config;
-    }
-    
-    @Override
-    public Object call() throws Exception {
-        return null;
     }
 
     @Override
@@ -86,7 +81,7 @@ public class GoogleSearch implements Search {
     }
 
     public static void main(String[] args){
-        GoogleSearch search = new GoogleSearch(new PeekMeeting_GameConfig());
+        GoogleSearch search = new GoogleSearch(new GameConfig_PeekMeeting());
         SearchResult searchResult = search.search("以下哪个不是清华大学的代表校花 山茶花");
         System.out.println(searchResult.toString());
     }

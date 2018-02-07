@@ -24,7 +24,7 @@ public class HttpConnectionUtil {
     private static final String PROXY_ADDR = "sheraton.h.timonit.cn";
     private static final int PROXY_PORT = 15944;
     private static final String PROXY_USER = "duotai";
-    private static final String PROXY_PASS = "xTXQ8-Br2dJV_47";
+    private static final String PROXY_PASS = "xTXQ8-Atp747-Br2dJV";
 
     public static InputStream getInfo(URL url){
         try {
@@ -61,7 +61,6 @@ public class HttpConnectionUtil {
 
             // logger.info(httpConn.getResponseMessage());
             InputStream inputStream = httpConn.getInputStream();
-            System.out.println(httpConn.getResponseCode() + " : " + httpConn.getResponseMessage());
             return inputStream;
         } catch (Exception exp){
 

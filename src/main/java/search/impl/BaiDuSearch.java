@@ -1,7 +1,7 @@
 package search.impl;
 
 import common.GameConfig;
-import common.PeekMeeting_GameConfig;
+import common.GameConfig_PeekMeeting;
 import model.SearchResult;
 import search.Search;
 import utils.HttpConnectionUtil;
@@ -62,15 +62,6 @@ public class BaiDuSearch implements Search {
         searchResult.setContent(content.toString());
         return searchResult;
     }
-
-    @Override
-    public SearchResult call() throws IOException {
-        if (config.isShow_browser()) {
-            //todo:
-//            new Utils().openBrowser(path);
-        }
-        return search("");
-    }
     
     // encode the search content
     private String getEncodeContent(String content){
@@ -83,7 +74,7 @@ public class BaiDuSearch implements Search {
     }
     
     public static void main(String[] args){
-        BaiDuSearch search = new BaiDuSearch(new PeekMeeting_GameConfig());
+        BaiDuSearch search = new BaiDuSearch(new GameConfig_PeekMeeting());
         SearchResult searchResult = search.search("以下哪个不是清华大学的代表校花 山茶花");
         System.out.println(searchResult.toString());
     }

@@ -1,7 +1,7 @@
 package utils;
 
 import common.GameConfig;
-import common.PeekMeeting_GameConfig;
+import common.GameConfig_PeekMeeting;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -139,7 +139,7 @@ public class ImageUtil {
         String src = "src/resource/screenshot.png";
         String dest= "src/resource/screenshot_after_cut.png";
         ImageUtil imageUtil = new ImageUtil();
-        BufferedImage bufferedImage = imageUtil.cutImage(src, new PeekMeeting_GameConfig());
-        imageUtil.saveImage(bufferedImage, dest, new PeekMeeting_GameConfig());
+        BufferedImage bufferedImage = imageUtil.cutImage(src, new GameConfig_PeekMeeting());
+        imageUtil.saveImage(bufferedImage, dest, new GameConfig_PeekMeeting());
     }
 }
