@@ -43,7 +43,6 @@ public class BaiDuOCR implements OCR{
     @Override
     public QuestionAndAnswer getQuestionAndAnswer(byte[] image) {
         JSONObject res = CLIENT.basicGeneral(image, new HashMap<String, String>());
-        System.out.println(res.toString());
         
         StringBuilder question = new StringBuilder();
         List<String> answerList = new ArrayList();

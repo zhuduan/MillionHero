@@ -8,23 +8,23 @@ package model;
  */
 public class ChosenAnswer {
     
-    private Integer chooseNo = 0;
+    private Integer chooseIndex = -1;
     private String answer = "未知";
 
     public ChosenAnswer() {
     }
 
-    public ChosenAnswer(Integer chooseNo, String answer) {
-        this.chooseNo = chooseNo;
+    public ChosenAnswer(Integer chooseIndex, String answer) {
+        this.chooseIndex = chooseIndex;
         this.answer = answer;
     }
 
-    public Integer getChooseNo() {
-        return chooseNo;
+    public Integer getChooseIndex() {
+        return chooseIndex;
     }
 
-    public void setChooseNo(Integer chooseNo) {
-        this.chooseNo = chooseNo;
+    public void setChooseIndex(Integer chooseIndex) {
+        this.chooseIndex = chooseIndex;
     }
 
     public String getAnswer() {
@@ -33,5 +33,10 @@ public class ChosenAnswer {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+    
+    @Override
+    public String toString(){
+        return "answer is " + (chooseIndex+1) + " : " + answer;
     }
 }

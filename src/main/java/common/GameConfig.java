@@ -19,6 +19,9 @@ public abstract class GameConfig {
     private int qa_txt_max_per_line = 15;
     private int qa_answer_max_num = 3;
     private String qa_char_code = "UTF-8";
+    
+    // performance related
+    private int chosen_answer_timeout = 3000;   //unit: ms
 
     // display related
     private boolean show_browser = false;
@@ -93,5 +96,13 @@ public abstract class GameConfig {
 
     public void setQa_char_code(String qa_char_code) {
         this.qa_char_code = qa_char_code;
+    }
+
+    public int getChosen_answer_timeout() {
+        return chosen_answer_timeout;
+    }
+
+    public void setChosen_answer_timeout(int chosen_answer_timeout) {
+        this.chosen_answer_timeout = chosen_answer_timeout;
     }
 }

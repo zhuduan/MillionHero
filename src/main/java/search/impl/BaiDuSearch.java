@@ -23,13 +23,15 @@ public class BaiDuSearch implements Search {
     private static String URL_SUFFIX = "";
 
     private GameConfig config = null;
-
     
-    public BaiDuSearch(GameConfig config) {
+    private String searchContent = "";
+    
+    public BaiDuSearch(GameConfig config, String content) {
         this.config = config;
+        this.searchContent = content;
     }
-
-    @Override
+    
+    
     public SearchResult search(String searchContent) {
         SearchResult searchResult = new SearchResult();
         StringBuilder content = new StringBuilder();
@@ -74,8 +76,14 @@ public class BaiDuSearch implements Search {
     }
     
     public static void main(String[] args){
-        BaiDuSearch search = new BaiDuSearch(new GameConfig_PeekMeeting());
-        SearchResult searchResult = search.search("以下哪个不是清华大学的代表校花 山茶花");
+        String content = "以下哪个不是清华大学的代表校花 山茶花";
+        BaiDuSearch search = new BaiDuSearch(new GameConfig_PeekMeeting(), content);
+        SearchResult searchResult = search.search(content);
         System.out.println(searchResult.toString());
+    }
+
+    @Override
+    public SearchResult call() throws Exception {
+        return search(this.searchContent);
     }
 }

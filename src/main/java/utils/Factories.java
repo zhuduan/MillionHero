@@ -9,6 +9,14 @@ import search.Search;
 import search.impl.BaiDuSearch;
 import search.impl.GoogleSearch;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * purpose of this class
  *
@@ -29,14 +37,27 @@ public class Factories {
     }
     
     
-    public static Search getSearchMethod(SearchMethod type, GameConfig config){
+    public static Search getSearchMethod(SearchMethod type, GameConfig config, String searchContent){
         switch (type){
             case BAIDU:
-                return new BaiDuSearch(config);
+                return new BaiDuSearch(config, searchContent);
             case GOOGLE:
-                return new GoogleSearch(config);
+                return new GoogleSearch(config, searchContent);
             default:
-                return new BaiDuSearch(config);
+                return new BaiDuSearch(config, searchContent);
         }
+    }
+    
+    
+    public static ThreadPoolExecutor getThreadPool(){
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingDeque<Runnable>(100);
+        int corePoolSize = 3;
+        int maxPoolSize = 6;
+        Long keepAliveMillions = 1000L;
+        
+        // use the default handler for reject
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 
+                keepAliveMillions, TimeUnit.MILLISECONDS, workQueue);
+        return threadPoolExecutor;
     }
 }

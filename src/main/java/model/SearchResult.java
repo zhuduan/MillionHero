@@ -8,7 +8,7 @@ package model;
  */
 public class SearchResult {
     
-    private Long hitNum = 0L;
+    private Long hitNum = -1L;
     
     private String content = "";
 
